@@ -1,5 +1,18 @@
+import {question as input} from "readline-sync";
 import fs from "fs/promises"
 
+export function showMenu() {
+    console.log(`
+        1. Get People List
+        2. Get Call Records
+        3. Search People by Name
+        4. Search People by Age
+        5. Find Dangerous People`);
+    
+}
+export function inputUser() {
+    return input("enter your choice: ")
+}
 export async function getPeopleList() {
   try {
       const res = await fetch('https://spiestestserver-8l55.onrender.com/people')
@@ -64,12 +77,24 @@ export function countWord(obj) {
     const newObj = {}
     for (let i = 0; i < resultDangerArr.length; i++) {
         if (resultDangerArr[i][1].length > 0) {
-            if (!resultDangerArr[newObj[i]]) {
-                resultDangerArr[newObj[i]] = []
+            if (!newObj[resultDangerArr[i][0]]) {
+                newObj[resultDangerArr[i][0]] = []
         }
-            if (condition) {
+            for (let word in newObj[i][1]) {
                 
+                if (word === 'death' || word === 'knife' || word === 'bomb' || word === 'attack') {
+                    let object = {
+                                'death': 0,
+                                'knife': 0,
+                                'bomb': 0,
+                                'attack': 0}
+                    object[word] += 1
+                }
+
+
             }
+            newObj.push(object)
+            
         }
     }
     
